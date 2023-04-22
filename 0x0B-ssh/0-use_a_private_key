@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Establish connection to 54.146.56.253
+
+ssh -i ~/.ssh/school ubuntu@54.146.56.253
