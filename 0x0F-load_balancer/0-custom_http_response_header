@@ -1,14 +1,26 @@
 #!/usr/bin/env bash
 # configure a brand new Ubuntu machine to task requirements
 
-sudo apt-get update
-sudo apt-get -y upgrade
+apt-get update
+apt-get -y upgrade
 
-sudo apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'
 
-sudo chmod -R 7555 /var/www
-sudo echo 'Hello World!' > /var/www/html/index.html
-echo 'add_header X-Served-By $HOSTNAME' > /etc/nginx/nginx.conf
-sudo service nginx start
+mkdir -p /var/www/html
+
+
+chmod -R 7555 /var/www
+echo "Hello World!" > /var/www/html/index.html
+echo "
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	add_header X-Served-By $HOSTNAME;
+	root   /var/www/html;
+	index index.html index.htm;
+
+" > /etc/nginx/sites-available/default
+
+service nginx start
 
