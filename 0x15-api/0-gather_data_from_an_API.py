@@ -13,12 +13,12 @@ if __name__ == "__main__":
     u_id = sys.argv[1]
     user = requests.get("{}users/{}".format(url, u_id)).json()
 
-    user_todos = requests.get("{}users/{}/todos".format(url, u_id)).json()
+    user_todos = requests.get(url + "todos", params={"userId": u_id}).json()
 
     completed_tasks = []
 
     for todo in user_todos:
-        if todo.get("completed") == True:
+        if todo.get("completed") is True:
             completed_tasks.append(todo)
 
     print("Employee {} is done with tasks({}/{}):".format(
