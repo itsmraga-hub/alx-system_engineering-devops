@@ -32,7 +32,6 @@ if __name__ == "__main__":
 
         todos_all[user_id] = user_todos
 
-
     todos_json = json.dumps(todos_all)
     file = 'todo_all_employees.json'
     with open(file, 'w') as f:
