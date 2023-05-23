@@ -20,10 +20,6 @@ if __name__ == "__main__":
 
     completed_tasks = []
 
-    for todo in user_todos:
-        if todo.get("completed") is True:
-            completed_tasks.append(todo)
-
     file = '{}.csv'.format(u_id)
     with open(file, 'w') as f:
         writer = csv.writer(f, quoting=csv.QUOTE_ALL)
