@@ -30,5 +30,5 @@ if __name__ == "__main__":
 
     todos_json = json.dumps(todos)
     file = '{}.json'.format(u_id)
-    with open(file, 'w', newline="") as f:
+    with open(file, 'w') as f:
         f.write(todos_json)

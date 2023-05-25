@@ -21,7 +21,7 @@ if __name__ == "__main__":
     completed_tasks = []
 
     file = '{}.csv'.format(u_id)
-    with open(file, 'w') as f:
+    with open(file, 'w', newline="") as f:
         writer = csv.writer(f, quoting=csv.QUOTE_ALL)
         for task in user_todos:
             name = user.get("name")
