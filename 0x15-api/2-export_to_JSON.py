@@ -16,14 +16,14 @@ if __name__ == "__main__":
 
     user = requests.get("{}users/{}".format(url, u_id)).json()
 
-    user_todos = requests.get(url + "todos", params={"userId": u_id}).json()
+    user_todos = requests.get("{}todos?userId={}".format(url, u_id)).json()
 
     todos = {
                 u_id: []
             }
     for todo in user_todos:
         title = todo.get("title")
-        username = user.get("name")
+        username = user.get("username")
         completed = todo.get("completed")
         obj = {"task": title, "completed": completed, "username": username}
         todos[u_id].append(obj)
