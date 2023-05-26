@@ -1,22 +1,30 @@
 #!/usr/bin/python3
-'''
-A script to export data in the CSV format.
-'''
+"""
+    Write a Python script that, using this REST API, for a given
+    employee ID, returns information about his/her TODO list progress.
+"""
 
 import csv
 import requests
-from sys import argv
+import sys
 
-if __name__ == '__main__':
-    uid = argv[1]
-    url = "https://jsonplaceholder.typicode.com/users/{}".format(uid)
-    user = requests.get(url, verify=False).json()
-    url = "https://jsonplaceholder.typicode.com/todos?userId={}".format(
-        uid)
-    todo = requests.get(url, verify=False).json()
-    with open("{}.csv".format(uid), 'w', newline='') as csvfile:
-        taskwriter = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
-        for t in todo:
-            taskwriter.writerow([int(uid), user.get('username'),
-                                 t.get('completed'),
-                                 t.get('title')])
+
+if __name__ == "__main__":
+    url = 'https://jsonplaceholder.typicode.com/'
+
+    u_id = sys.argv[1]
+
+    user = requests.get("{}users/{}".format(url, u_id)).json()
+
+    user_todos = requests.get(url + "todos", params={"userId": u_id}).json()
+
+    completed_tasks = []
+
+    file = '{}.csv'.format(u_id)
+    with open(file, 'w', newline="") as f:
+        writer = csv.writer(f, quoting=csv.QUOTE_ALL)
+        for task in user_todos:
+            name = user.get("name")
+            title = task.get("title")
+            completed = task.get("completed")
+            writer.writerow([int(u_id), name, completed, title])
