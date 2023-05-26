@@ -16,15 +16,13 @@ if __name__ == "__main__":
 
     user = requests.get("{}users/{}".format(url, u_id)).json()
 
-    user_todos = requests.get(url + "todos", params={"userId": u_id}).json()
-
-    completed_tasks = []
+    user_todos = requests.get("{}todos?userId={}".format(url, u_id)).json()
 
     file = '{}.csv'.format(u_id)
     with open(file, 'w', newline="") as f:
         writer = csv.writer(f, quoting=csv.QUOTE_ALL)
         for task in user_todos:
-            name = user.get("name")
+            name = user.get("username")
             title = task.get("title")
             completed = task.get("completed")
             writer.writerow([int(u_id), name, completed, title])
