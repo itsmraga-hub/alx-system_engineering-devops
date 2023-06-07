@@ -21,7 +21,7 @@ def number_of_subscribers(subreddit):
     if response.status_code == 200:
         all_titles = response.json().get("data").get("children")
         for title in all_titles:
-            t = title.get('data').get('children')
+            t = title.get('data').get('title')
             print(t)
     else:
         print(None)
