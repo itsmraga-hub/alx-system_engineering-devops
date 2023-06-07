@@ -4,8 +4,8 @@ import requests
 import sys
 
 
-def number_of_subscribers(subreddit):
-    """  Args:
+def top_ten(subreddit):
+    """Args:
         subreddit: subreddit name
     Returns:
         no of subscribers or 0 if subreddit requested is invalid"""
