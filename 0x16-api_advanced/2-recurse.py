@@ -18,7 +18,7 @@ def recurse(subreddit, hot_list=[], after='', count=0):
                      allow_redirects=False)
 
     if r.status_code == 200:
-        res = r.json()/get('data')
+        res = r.json().get('data')
         after = r.json().get('data').get('after')
         list_titles = r.json().get('data').get('children')
 
