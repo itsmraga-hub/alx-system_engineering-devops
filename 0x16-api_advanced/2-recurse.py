@@ -5,7 +5,7 @@ import requests
 import sys
 
 
-def recurse(subreddit, hot_list=[], after=''):
+def recurse(subreddit, hot_list=[], after='', count=0):
     """Returns:
           list containing the titles of all hot articles for the subreddit
           or None if queried subreddit is invalid
@@ -13,17 +13,18 @@ def recurse(subreddit, hot_list=[], after=''):
     url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
 
     headers = {'User-Agent': 'itsmraga'}
-    r = requests.get(url, headers=headers, params={'after': after},
+    r = requests.get(url, headers=headers,
+                     params={'after': after, 'limit': 100, 'count': count},
                      allow_redirects=False)
 
     if r.status_code == 200:
-        next_ = r.json().get('data').get('after')
-        if next_ is not None:
-            after = next_
-            recurse(subreddit, hot_list)
+        res = r.json()/get('data')
+        after = r.json().get('data').get('after')
         list_titles = r.json().get('data').get('children')
-        for title_ in list_titles:
-            hot_list.append(title_.get('data').get('title'))
+
+        for title in list_titles:
+            hot_list.append(title.get('data').get('title'))
+        if after is not None:
+            return recurse(subreddit, hot_list, after)
+
         return hot_list
-    else:
-        return (None)
