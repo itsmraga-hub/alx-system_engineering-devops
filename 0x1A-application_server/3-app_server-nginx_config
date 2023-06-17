@@ -1,0 +1,22 @@
+# 3 app server nginx config
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name 100.25.47.177;
+
+    add_header X-Served-By 52421-web-01;
+
+    resolver 8.8.8.8;
+
+    location /airbnb-onepage/ {
+        proxy_pass http://localhost:5000/airbnb-onepage/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+
+    location ~ /airbnb-dynamic/number_odd_or_even/(\d+)$ {
+        proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;
+    }
+}
